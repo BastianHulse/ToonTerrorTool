@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encounter Tracker</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+
+    <aside id="statblockPanel" class="right-tool-panel collapsed">
+        <button id="toggleStatblockPanel" class="right-tool-toggle statblock-toggle">📜 Statblock</button>
+        <div class="right-tool-content">
+            <h2>Selected Monster</h2>
+            <div id="selectedMonsterStatblock">
+            <p>Select a monster from the encounter.</p>
+            </div>
+        </div>
+        </aside>
+
+    <aside id="logPanel" class="right-tool-panel collapsed">
+        <button id="toggleLogPanel" class="right-tool-toggle log-toggle">🧾 Log</button>
+        <div class="right-tool-content">
+            <h2>Mutation Log</h2>
+            <button id="clearMutationLogBtn" type="button">
+              Clear Log
+            </button>
+            <div id="encounterMutationLog">
+            <p>No mutations yet.</p>
+            </div>
+        </div>
+    </aside>
+
+    <aside id="mutationPanel" class="right-tool-panel collapsed">
+    <button id="toggleMutationPanel" class="right-tool-toggle mutation-toggle">🧬 Precise Mutation</button>
+
+    <div class="right-tool-content mutation-tool-content">
+        <h2>Mutation Controls</h2>
+
+            <div id="mutationSelectedMonster" class="mutation-selected">
+                No monster selected
+            </div>
+
+        <label>
+        Category
+        <select id="targetMutationCategory" size="5">
+            <option value="Rarity">Rarity</option>
+            <option value="CR">CR</option>
+            <option value="Resistances">Resistances</option>
+            <option value="Vulnerabilities">Vulnerabilities</option>
+            <option value="Immunities">Immunities</option>
+            <option value="Moves">Moves</option>
+            <option value="Spells">Spells</option>
+            <option value="Senses">Senses</option>
+            <option value="Health">Health</option>
+            <option value="Skills">Skills</option>
+            <option value="Damage Die">Damage Die</option>
+            <option value="Speed">Speed</option>
+            <option value="Stats">Stats</option>
+            <option value="Saving Throws">Saving Throws</option>
+            <option value="AC">AC</option>
+            <option value="Multiattack">Multiattack</option>
+            <option value="Abilities">Abilities</option>
+            <option value="Spell Slot Level">Spell Slot Level</option>
+            <option value="Spell Slot #">Spell Slot #</option>
+        </select>
+        </label>
+
+        <label>
+        Value
+        <select id="targetMutationValue"></select>
+        <input id="targetMutationNumber" type="number" placeholder="Number value" hidden />
+        </label>
+
+        <label>
+        Action
+        <select id="targetMutationAction">
+            <option value="add">Add</option>
+            <option value="remove">Remove</option>
+            <option value="replace">Replace Random</option>
+        </select>
+        </label>
+
+        <button id="applyDetailedMutationBtn" type="button">Apply to Selected Monster</button>
+    </div>
+    </aside>
+
+    <div class="combatant-image ${getMutationClasses(combatant)}">
+      <img src="..." />
+    </div>
+
+    <aside id="randomMutationPanel" class="right-tool-panel collapsed">
+        <button id="toggleRandomMutationPanel" class="right-tool-toggle random-mutation-toggle">🎲 Random Mutation</button>
+
+        <div class="right-tool-content mutation-tool-content">
+            <h2>Random Rerolls</h2>
+
+            <div id="randomMutationSelectedMonster" class="mutation-selected">
+            No monster selected
+            </div>
+            <button data-random-mutation="Rarity">Rarity</button>
+            <button data-random-mutation="CR">CR</button>
+            <button data-random-mutation="Stats">Stats</button>
+            <button data-random-mutation="AC">AC</button>
+            <button data-random-mutation="Health">Health</button>
+            <button data-random-mutation="Speed">Speed</button>
+            <button data-random-mutation="Saving Throws">Saving Throws</button>
+            <button data-random-mutation="Skills">Skills</button>
+            <button data-random-mutation="Resistances">Resistances</button>
+            <button data-random-mutation="Vulnerabilities">Vulnerabilities</button>
+            <button data-random-mutation="Immunities">Immunities</button>
+            <button data-random-mutation="Senses">Senses</button>
+            <button data-random-mutation="Multiattack">Multiattack</button>
+            <button data-random-mutation="Abilities">Abilities</button>
+            <button data-random-mutation="Moves">Moves</button>
+            <button data-random-mutation="Damage Die">Damage Die</button>
+            <button data-random-mutation="Spells">Spells</button>
+        </div>
+      </aside>
+
+  <main class="app">
+    <header class="app-header">
+      <h1>Encounter Tracker</h1>
+      <p>Run combat, track initiative, manage health, and mutate monsters.</p>
+      <p class="link"><a href="./index.html">← Back to Monster Generator</a></p>
+    </header>
+
+    <section class="controls">
+      <h2>Build Encounter</h2>
+
+      <label>
+        Add Monster from Library
+        <select id="monsterSelect"></select>
+      </label>
+
+      <label>
+        Filter by Country
+        <select id="encounterCountryFilter">
+            <option value="all">All Countries</option>
+        </select>
+        </label>
+
+        <label>
+        Favorites Only
+        <select id="encounterFavoriteFilter">
+            <option value="all">All Monsters</option>
+            <option value="favorites">Favorites Only</option>
+        </select>
+        </label>
+
+      <button id="addMonsterBtn" type="button">Add Monster</button>
+
+      <hr>
+
+      <label>
+        Player Name
+        <input id="playerNameInput" type="text" placeholder="Player character name" />
+      </label>
+
+      <label>
+        Player Initiative
+        <input id="playerInitiativeInput" type="number" />
+      </label>
+
+      <button id="addPlayerBtn" type="button">Add Player</button>
+    </section>
+
+    <section class="output-section">
+      <h2>Initiative Order</h2>
+      <div id="encounterList" class="monster-library">
+        <p>No combatants added yet.</p>
+      </div>
+    </section>
+
+    <section class="controls encounter-round-controls">
+        <h2>Round Controls</h2>
+
+        <button id="nextRoundBtn" type="button">Next Round / See Mutations</button>
+
+
+        <div class="round-mutation-output">
+            <h3>Random Mutation Output</h3>
+            <p id="mutationLog">No mutations rolled yet.</p>
+        </div>
+
+        <button id="applyRolledMiniMutationsBtn" type="button">
+             Apply Rolled Mini Mutations
+        </button>
+
+        <div class="encounter-footer">
+          <button id="resetEncounterBtn" class="danger-btn">
+            Reset Encounter
+          </button>
+        </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="./encounter.js"></script>
+</body>
+</html>

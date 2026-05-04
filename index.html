@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DnD Monster Generator</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+	
+	<aside id="rerollPanel" class="side-panel left-panel collapsed">
+ 	 <button id="toggleRerollPanel" type="button" class="side-toggle reroll-toggle">🎲 Reroll</button>
+
+	  <div class="side-content">
+		<h2>Reroll</h2>
+
+		<button data-reroll="stats">Stats</button>
+		<button data-reroll="movement">Movement</button>
+		<button data-reroll="defenses">Resistances / Immunities</button>
+		<button data-reroll="skills">Skills</button>
+		<button data-reroll="senses">Senses</button>
+		<button data-reroll="saves">Saving Throws</button>
+		<button data-reroll="abilities">Random Abilities</button>
+		<button data-reroll="moves">Moves</button>
+		<button data-reroll="spells">Spells</button>
+		<button data-reroll="legendary">Legendary Actions</button>
+		<button data-reroll="identity">Size / Type / Subtype</button>
+		<button data-reroll="all">Whole Monster</button>
+	  </div>
+	</aside>
+
+  <aside id="editSidePanel" class="side-panel left-panel collapsed">
+    <button id="toggleEditPanel" type="button" class="side-toggle edit-toggle">✏️ Edit</button>
+
+    <div class="side-content">
+      <h2>Edit Monster</h2>
+
+      <label>
+        Name
+        <input id="editName" type="text">
+      </label>
+
+      <label>
+        Armor Class
+        <input id="editAC" type="number">
+      </label>
+
+      <label>
+        Hit Points
+        <input id="editHP" type="number">
+      </label>
+
+      <label>
+        Notes
+        <textarea id="editNotes" rows="4"></textarea>
+      </label>
+
+      <button id="applyEditBtn" type="button">Apply Edits</button>
+    </div>
+  </aside>
+
+  <aside id="favoritesPanel" class="favorites-panel collapsed">
+  <button id="toggleFavoritesPanel" type="button" class="favorites-toggle">⭐ Favorites</button>
+
+    <div class="favorites-content">
+      <h2>Favorites</h2>
+      <div id="favoritesList">
+        <p>No favorites yet.</p>
+      </div>
+    </div>
+  </aside>
+	
+  <main class="app">
+    <header class="app-header">
+      <h1>DnD Monster Generator</h1>
+      <p>Generate, preview, and save your wacky, cartoonish, homebrew monsters.</p>
+      <p class="link"><a href="./encounter.html">Check out the Encounter Tracker!</a></p>
+    </header>
+
+    <section class="controls">
+      <label for="crInput">CR</label>
+      <select id="crInput">
+        <option value="0">0</option>
+        <option value="1/8">1/8</option>
+        <option value="1/4">1/4</option>
+        <option value="1/2">1/2</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+      </select>
+
+      <label for="rarityInput">Rarity</label>
+      <select id="rarityInput">
+        <option value="Normal">Normal</option>
+        <option value="Rare">Rare</option>
+        <option value="Unique">Unique</option>
+        <option value="Miniboss">Miniboss</option>
+        <option value="Boss">Boss</option>
+      </select>
+
+      <label for="countryInput">Country</label>
+      <select id="countryInput">
+        <option value="Geniocratic Republic of the Golden Ratio">Geniocratic Republic of the Golden Ratio</option>
+        <option value="Holy State of Storyboarding">Holy State of Storyboarding</option>
+        <option value="Protectorate of Parodies">Protectorate of Parodies</option>
+        <option value="Color Theory Theocracy">Color Theory Theocracy</option>
+        <option value="Duchy of Depiction">Duchy of Depiction</option>
+        <option value="Land of Lipsync">Land of Lipsync</option>
+        <option value="Animation Nation">Animation Nation</option>
+        <option value="Empire of Illustration">Empire of Illustration</option>
+        <option value="Anime Autocracy">Anime Autocracy</option>
+        <option value="Keyframe Khaganate">Keyframe Khaganate</option>
+        <option value="Rerun Republic">Rerun Republic</option>
+        <option value="Caricature County">Caricature County</option>
+        <option value="Old Ret">Old Ret</option>
+      </select>
+
+      <div class="button-row">
+        <button id="generateBtn" type="button">Generate Monster</button>
+        <button id="saveBtn" type="button">Save Monster</button>
+        <button id="favoriteBtn" type="button">Favorite Monster</button>
+      	</div>
+		
+		<div class="button-row">
+			<button id="copyDDBBtn" type="button">Copy for DnD Beyond</button>
+      <button id="removeMonsterBtn">Remove Selected Monster</button>
+      <button id="clearStorageBtn" type="button">Clear Saved Data</button>
+      	<button id="exportBtn">Export Monster List</button>
+		  <input type="file" id="importFile" />
+		</div>
+    </section>
+
+    <section class="output-section">
+      <h2>Highlighted Monster</h2>
+      <div id="output" class="statblock">
+        <p>No monster generated yet.</p>
+      </div>
+    </section>
+	  
+	  <section class="library-section">
+  		<h2>Monster Library</h2>
+        <div class="library-filters">
+          <input id="librarySearch" type="text" placeholder="Search monsters..." />
+
+          <select id="libraryFavoriteFilter">
+            <option value="all">All Monsters</option>
+            <option value="favorites">Favorites Only</option>
+          </select>
+        </div>
+ 		 <div id="monsterLibrary" class="monster-library">
+    	 	<p>No saved monsters yet.</p>
+ 		 </div>
+	  </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+
+</html>
