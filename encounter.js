@@ -2207,6 +2207,19 @@ function resetEncounter() {
     'Encounter reset.';
 }
 
+const menuToggle = document.getElementById('menuToggle');
+const headerMenu = document.getElementById('headerMenu');
+
+menuToggle.addEventListener('click', () => {
+  headerMenu.classList.toggle('hidden');
+});
+
+document.addEventListener('click', (e) => {
+  if (!menuToggle.contains(e.target) && !headerMenu.contains(e.target)) {
+    headerMenu.classList.add('hidden');
+  }
+});
+
 document.getElementById('addMonsterBtn').addEventListener('click', addMonsterToEncounter);
 document.getElementById('addPlayerBtn').addEventListener('click', addPlayerToEncounter);
 document.getElementById('nextRoundBtn').addEventListener('click', nextRoundMutations);

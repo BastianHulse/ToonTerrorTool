@@ -642,6 +642,19 @@ function removeCurrentMonster() {
   saveToBrowser();
 }
 
+const menuToggle = document.getElementById('menuToggle');
+const headerMenu = document.getElementById('headerMenu');
+
+menuToggle.addEventListener('click', () => {
+  headerMenu.classList.toggle('hidden');
+});
+
+document.addEventListener('click', (e) => {
+  if (!menuToggle.contains(e.target) && !headerMenu.contains(e.target)) {
+    headerMenu.classList.add('hidden');
+  }
+});
+
 // Hook buttons
 document.getElementById('generateBtn').addEventListener('click', handleGenerate);
 document.getElementById('saveBtn').addEventListener('click', handleSave);

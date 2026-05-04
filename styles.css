@@ -27,6 +27,9 @@ body.tools-open .app {
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 2000;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -811,4 +814,45 @@ body.tools-open .right-tool-panel.collapsed .right-tool-toggle {
 .mutation-stage-5 img {
   filter: hue-rotate(220deg) saturate(2.3) contrast(1.45) brightness(1.12);
   box-shadow: 0 0 14px rgba(255, 40, 180, 0.85);
+}
+
+.menu-toggle {
+  margin-left: auto; /* pushes it to the right */
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.menu-toggle:hover {
+  color: #ffd86b;
+}
+
+.header-menu {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background: #1a1a1a;
+  border: 2px solid #444;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 3000;
+}
+
+.header-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header-menu a:hover {
+  color: #ffd86b;
+}
+
+.hidden {
+  display: none;
 }
