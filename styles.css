@@ -830,7 +830,7 @@ body.tools-open .right-tool-panel.collapsed .right-tool-toggle {
 }
 
 .header-menu {
-  position: absolute;
+  position: fixed;
   top: 60px;
   right: 10px;
   background: #1a1a1a;
